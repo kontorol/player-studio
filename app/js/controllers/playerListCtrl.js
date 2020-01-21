@@ -82,13 +82,13 @@ angular.module('KMCModule').controller('PlayerListCtrl',
 				'filter:tagsMultiLikeOr': 'kdp3,html5studio',
 				'filter:orderBy': '-updatedAt',
 				'filter:objTypeIn': '1,8',
-				'filter:objectType': 'KalturaUiConfFilter',
+				'filter:objectType': 'KontorolUiConfFilter',
 				'filter:creationModeEqual': '2',
 				'ignoreNull': '1',
-				'responseProfile:objectType': 'KalturaDetachedResponseProfile',
+				'responseProfile:objectType': 'KontorolDetachedResponseProfile',
 				'responseProfile:type': '1',
 				'responseProfile:fields': 'id,name,html5Url,createdAt,updatedAt,tags',
-				'page:objectType': 'KalturaFilterPager',
+				'page:objectType': 'KontorolFilterPager',
 				'pager:pageIndex': '1',
 				'pager:pageSize': '999',
 				'service': 'uiConf',
@@ -297,7 +297,7 @@ angular.module('KMCModule').controller('PlayerListCtrl',
 				var currentVersion = window.MWEMBED_VERSION;
 				var msg = 'This will update the player "' + player.name + '" (ID: ' + player.id + ').';
 				msg += '<br>Current player version: ' + html5libVersion;
-				msg += '<br>Update to version: ' + currentVersion + '<a href="https://github.com/kaltura/mwEmbed/releases/tag/v' + currentVersion + '" target="_blank"> (release notes)</a>';
+				msg += '<br>Update to version: ' + currentVersion + '<a href="https://github.com/kontorol/mwEmbed/releases/tag/v' + currentVersion + '" target="_blank"> (release notes)</a>';
 				var modal = utilsSvc.confirm('Updating confirmation', msg, 'Update');
 				modal.result.then(function (result) {
 					if (result) {

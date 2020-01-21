@@ -250,7 +250,7 @@ KMCServices.factory('PlayerService', ['$http', '$modal', '$log', '$q', 'apiServi
 				$("#Comp_300x250").empty();
 				$("#Comp_728x90").empty();
 				window.mw.setConfig('forceMobileHTML5', true);
-				window.mw.setConfig('Kaltura.EnableEmbedUiConfJs', true);
+				window.mw.setConfig('Kontorol.EnableEmbedUiConfJs', true);
 				kWidget.embed({
 					"targetId": 'kVideoTarget',
 					"wid": "_" + wid,
@@ -287,7 +287,7 @@ KMCServices.factory('PlayerService', ['$http', '$modal', '$log', '$q', 'apiServi
 							'2:action': 'update',
 							'2:id': '{1:result:id}',
 							'2:uiConf:name': 'New Player',
-							'2:uiConf:objectType': 'KalturaUiConf',
+							'2:uiConf:objectType': 'KontorolUiConf',
 							'2:uiConf:objType': 1,
 							'2:uiConf:width': 560,
 							'2:uiConf:height': 395,
@@ -300,7 +300,7 @@ KMCServices.factory('PlayerService', ['$http', '$modal', '$log', '$q', 'apiServi
 						request = {
 							'service': 'uiConf',
 							'action': 'add',
-							'uiConf:objectType': 'KalturaUiConf',
+							'uiConf:objectType': 'KontorolUiConf',
 							'uiConf:objType': 1,
 							'uiConf:description': '',
 							'uiConf:height': '395',
@@ -344,7 +344,7 @@ KMCServices.factory('PlayerService', ['$http', '$modal', '$log', '$q', 'apiServi
 					'2:action': 'update',
 					'2:id': '{1:result:id}',
 					'2:uiConf:name': 'Copy of ' + srcUi.name,
-					'2:uiConf:objectType': 'KalturaUiConf'
+					'2:uiConf:objectType': 'KontorolUiConf'
 //'2:uiConf:objType': 1,
 // 'uiConf:creationMode': 2
 				};
@@ -855,7 +855,7 @@ KMCServices.factory('apiService', ['api', '$q', '$timeout', '$location', 'localS
 			var request = {
 				'service': 'baseentry',
 				'filter:mediaTypeIn': '1,2,5,6,201', // copied from KMC search
-				'filter:objectType': 'KalturaMediaEntryFilter',
+				'filter:objectType': 'KontorolMediaEntryFilter',
 				'action': 'list'
 
 			};
@@ -867,7 +867,7 @@ KMCServices.factory('apiService', ['api', '$q', '$timeout', '$location', 'localS
 				'action': 'list',
 				'filter:freeText': term,
 				'filter:mediaTypeIn': '1,2,5,6,201', // copied from KMC search
-				'filter:objectType': 'KalturaMediaEntryFilter',
+				'filter:objectType': 'KontorolMediaEntryFilter',
 				ignoreNull: '1'
 			};
 			return apiService.doRequest(request, true);
@@ -875,7 +875,7 @@ KMCServices.factory('apiService', ['api', '$q', '$timeout', '$location', 'localS
 		listPlaylists: function () {
 			var request = {
 				'service': 'baseentry',
-				'filter:objectType': 'KalturaBaseEntryFilter',
+				'filter:objectType': 'KontorolBaseEntryFilter',
 				'filter:typeEqual': '5',
 				'action': 'list'
 
@@ -887,7 +887,7 @@ KMCServices.factory('apiService', ['api', '$q', '$timeout', '$location', 'localS
 				'service': 'baseentry',
 				'action': 'list',
 				'filter:freeText': term,
-				'filter:objectType': 'KalturaBaseEntryFilter',
+				'filter:objectType': 'KontorolBaseEntryFilter',
 				'filter:typeEqual': '5',
 				ignoreNull: '1'
 			};
