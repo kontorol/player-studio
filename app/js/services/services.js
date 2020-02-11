@@ -219,10 +219,10 @@ KMCServices.factory('PlayerService', ['$http', '$modal', '$log', '$q', 'apiServi
 			return currentRefresh.promise;
 		};
 		var playersService = {
-			kalturaPlayer: null,
+			kontorolPlayer: null,
 			PLAYER_ID: 'kVideoTarget',
-			KALTURA_PLAYER: 'kaltura-ovp-player',
-			KALTURA_PLAYER_OTT: 'kaltura-tv-player',
+			KONTOROL_PLAYER: 'kontorol-ovp-player',
+			KONTOROL_PLAYER_OTT: 'kontorol-tv-player',
 			OVP: 'ovp',
 			OTT: 'ott',
 			playerVersionsMap: null,
@@ -265,7 +265,7 @@ KMCServices.factory('PlayerService', ['$http', '$modal', '$log', '$q', 'apiServi
 			'validatePluginsSupport': function (playerData) {
 				for (var plugin in playerData.plugins) {
 					var pluginData = playerData.plugins[plugin];
-					if (!playersService.isValidPlayerVersion(playerData, pluginData.kalturaPlayerMinVersion)) {
+					if (!playersService.isValidPlayerVersion(playerData, pluginData.kontorolPlayerMinVersion)) {
 						if (playerData.externals) {
 							delete playerData.externals[pluginData.componentName];
 						}
@@ -293,8 +293,8 @@ KMCServices.factory('PlayerService', ['$http', '$modal', '$log', '$q', 'apiServi
 				var partner_id = playerData.partnerId;
 				var forceTouchUI = playerData.forceTouchUI;
 				var loadPlayer = function () {
-					if (playersService.kalturaPlayer) {
-						playersService.kalturaPlayer.destroy();
+					if (playersService.kontorolPlayer) {
+						playersService.kontorolPlayer.destroy();
 						$("#" + playersService.PLAYER_ID).empty();
 					}
 					loadMedia();
@@ -311,17 +311,17 @@ KMCServices.factory('PlayerService', ['$http', '$modal', '$log', '$q', 'apiServi
 						playersService.removeUnsupportedPlugins(playerData, config.plugins);
 						config.targetId = playersService.PLAYER_ID;
 						Object.assign(config.provider, providerConfig);
-						if (window.__kalturaplayerdata) {
-							config.provider.env = $.extend(true, {}, window.__kalturaplayerdata.UIConf[playerData.id].provider.env, config.provider.env);
+						if (window.__kontorolplayerdata) {
+							config.provider.env = $.extend(true, {}, window.__kontorolplayerdata.UIConf[playerData.id].provider.env, config.provider.env);
 						}
 						if (forceTouchUI) {
 							Object.assign(config, {ui: {forceTouchUI: true}});
 						}
-						playersService.kalturaPlayer = KalturaPlayer.setup(config);
+						playersService.kontorolPlayer = KontorolPlayer.setup(config);
 						if (isPlaylist) {
-							playersService.kalturaPlayer.loadPlaylist({playlistId: entry_id});
+							playersService.kontorolPlayer.loadPlaylist({playlistId: entry_id});
 						} else {
-							playersService.kalturaPlayer.loadMedia({entryId: entry_id});
+							playersService.kontorolPlayer.loadMedia({entryId: entry_id});
 						}
 						callback();
 					} catch (error) {
@@ -333,16 +333,16 @@ KMCServices.factory('PlayerService', ['$http', '$modal', '$log', '$q', 'apiServi
 				// clear companion divs
 				$("#Comp_300x250").empty();
 				$("#Comp_728x90").empty();
-				playersService.loadKalturaPlayerScript(playerData, function () {
-					if (window.KalturaPlayer) {
+				playersService.loadKontorolPlayerScript(playerData, function () {
+					if (window.KontorolPlayer) {
 						loadPlayer();
 					} else {
 						callback();
 					}
 				});
 			},
-			'loadKalturaPlayerScript': function (playerData, callback) {
-				if (window.KalturaPlayer) {
+			'loadKontorolPlayerScript': function (playerData, callback) {
+				if (window.KontorolPlayer) {
 					callback();
 					return;
 				}
@@ -387,7 +387,7 @@ KMCServices.factory('PlayerService', ['$http', '$modal', '$log', '$q', 'apiServi
 				};
 
 				var loadScript = function (env) {
-					require('//' + env + '/p/' + partner_id + '/embedPlaykitJs/uiconf_id/' + uiconf_id + '/versions/' + playerVersionParam + getPluginsVersion(), callback);
+					require('//' + env + '/p/' + partner_id + '/embedPakhshkitJs/uiconf_id/' + uiconf_id + '/versions/' + playerVersionParam + getPluginsVersion(), callback);
 				};
 
 				if (window.parent.kmc && window.parent.kmc.vars && window.parent.kmc.vars.host) {
@@ -413,7 +413,7 @@ KMCServices.factory('PlayerService', ['$http', '$modal', '$log', '$q', 'apiServi
 					var request = {
 						'service': 'uiConf',
 						'action': 'add',
-						'uiConf:objectType': 'KalturaUiConf',
+						'uiConf:objectType': 'KontorolUiConf',
 						'uiConf:objType': 1,
 						'uiConf:description': '',
 						'uiConf:height': '395',
@@ -421,7 +421,7 @@ KMCServices.factory('PlayerService', ['$http', '$modal', '$log', '$q', 'apiServi
 						'uiConf:swfUrl': '/',
 						'uiConf:version': '161',
 						'uiConf:name': 'New Player',
-						'uiConf:tags': 'kalturaPlayerJs,player,' + playersService.getPartnerType(),
+						'uiConf:tags': 'kontorolPlayerJs,player,' + playersService.getPartnerType(),
 						'uiConf:confVars': '{"' + playersService.getPlayerBundle() + '":"{latest}"}',
 						'uiConf:creationMode': 2,
 						'uiConf:config': angular.toJson(data, true)
@@ -454,7 +454,7 @@ KMCServices.factory('PlayerService', ['$http', '$modal', '$log', '$q', 'apiServi
 					'2:action': 'update',
 					'2:id': '{1:result:id}',
 					'2:uiConf:name': 'Copy of ' + srcUi.name,
-					'2:uiConf:objectType': 'KalturaUiConf'
+					'2:uiConf:objectType': 'KontorolUiConf'
 //'2:uiConf:objType': 1,
 // 'uiConf:creationMode': 2
 				};
@@ -645,11 +645,11 @@ KMCServices.factory('PlayerService', ['$http', '$modal', '$log', '$q', 'apiServi
 			'getPlayerBundle': function () {
 				switch (playersService.getEnvType()) {
 					case 0: //OVP
-						return playersService.KALTURA_PLAYER;
+						return playersService.KONTOROL_PLAYER;
 					case 1: //OTT
-						return playersService.KALTURA_PLAYER_OTT;
+						return playersService.KONTOROL_PLAYER_OTT;
 					case 2: //Hybrid
-						return (playersService.OvpOrOtt === playersService.OTT) ? playersService.KALTURA_PLAYER_OTT : playersService.KALTURA_PLAYER;
+						return (playersService.OvpOrOtt === playersService.OTT) ? playersService.KONTOROL_PLAYER_OTT : playersService.KONTOROL_PLAYER;
 				}
 			},
 			'getPartnerType': function () {
@@ -708,7 +708,7 @@ KMCServices.factory('PlayerService', ['$http', '$modal', '$log', '$q', 'apiServi
 					}
 				}
 				for (var external in data.externals) {
-					if (data.externals[external].active && playersService.isValidPlayerVersion(data, data.externals[external].kalturaPlayerMinVersion)) {
+					if (data.externals[external].active && playersService.isValidPlayerVersion(data, data.externals[external].kontorolPlayerMinVersion)) {
 						playerAndPluginsVersionObj[external] = playersService.getComponentVersion(data, external);
 					}
 				}
@@ -970,7 +970,7 @@ KMCServices.factory('apiService', ['api', '$q', '$timeout', '$location', 'localS
 			var request = {
 				'service': 'baseentry',
 				'filter:mediaTypeIn': '1,2,5,6,201', // copied from KMC search
-				'filter:objectType': 'KalturaMediaEntryFilter',
+				'filter:objectType': 'KontorolMediaEntryFilter',
 				'action': 'list'
 
 			};
@@ -982,7 +982,7 @@ KMCServices.factory('apiService', ['api', '$q', '$timeout', '$location', 'localS
 				'action': 'list',
 				'filter:freeText': term,
 				'filter:mediaTypeIn': '1,2,5,6,201', // copied from KMC search
-				'filter:objectType': 'KalturaMediaEntryFilter',
+				'filter:objectType': 'KontorolMediaEntryFilter',
 				ignoreNull: '1'
 			};
 			return apiService.doRequest(request, true);
@@ -990,7 +990,7 @@ KMCServices.factory('apiService', ['api', '$q', '$timeout', '$location', 'localS
 		listPlaylists: function () {
 			var request = {
 				'service': 'baseentry',
-				'filter:objectType': 'KalturaBaseEntryFilter',
+				'filter:objectType': 'KontorolBaseEntryFilter',
 				'filter:typeEqual': '5',
 				'action': 'list'
 
@@ -1002,7 +1002,7 @@ KMCServices.factory('apiService', ['api', '$q', '$timeout', '$location', 'localS
 				'service': 'baseentry',
 				'action': 'list',
 				'filter:freeText': term,
-				'filter:objectType': 'KalturaBaseEntryFilter',
+				'filter:objectType': 'KontorolBaseEntryFilter',
 				'filter:typeEqual': '5',
 				ignoreNull: '1'
 			};

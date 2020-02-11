@@ -5,7 +5,7 @@
 angular.module('KMCModule').controller('PlayerListCtrl',
 	['apiService', 'loadINI', '$location', '$rootScope', '$scope', '$filter', '$modal', '$timeout', '$log', "$compile", "$window", 'localStorageService', 'requestNotificationChannel', 'PlayerService', '$q', 'utilsSvc',
 		function (apiService, loadINI, $location, $rootScope, $scope, $filter, $modal, $timeout, $log, $compile, $window, localStorageService, requestNotificationChannel, PlayerService, $q, utilsSvc) {
-			window.KalturaPlayer = null;
+			window.KontorolPlayer = null;
 			// start request to show the spinner. When data is rendered, the onFinishRender directive will hide the spinner
 			requestNotificationChannel.requestStarted('list');
 			$rootScope.lang = 'en-US';
@@ -82,16 +82,16 @@ angular.module('KMCModule').controller('PlayerListCtrl',
 
 			// get players list from KMC
 			var playersRequest = {
-				'filter:tagsMultiLikeAnd': 'kalturaPlayerJs',
+				'filter:tagsMultiLikeAnd': 'kontorolPlayerJs',
 				'filter:orderBy': '-updatedAt',
 				'filter:objTypeIn': '1,8',
-				'filter:objectType': 'KalturaUiConfFilter',
+				'filter:objectType': 'KontorolUiConfFilter',
 				'filter:creationModeEqual': '2',
 				'ignoreNull': '1',
-				'responseProfile:objectType': 'KalturaDetachedResponseProfile',
+				'responseProfile:objectType': 'KontorolDetachedResponseProfile',
 				'responseProfile:type': '1',
 				'responseProfile:fields': 'id,name,html5Url,createdAt,updatedAt,tags',
-				'page:objectType': 'KalturaFilterPager',
+				'page:objectType': 'KontorolFilterPager',
 				'pager:pageIndex': '1',
 				'pager:pageSize': '999',
 				'service': 'uiConf',

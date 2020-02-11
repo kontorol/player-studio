@@ -15,8 +15,8 @@ KMCMenu.controller('EditCtrl', ['$scope','$http', '$timeout','PlayerData','Playe
 	try {
 		var confVarsObj = JSON.parse($scope.playerData.confVars);
 		if (confVarsObj) {
-			PlayerService.OvpOrOtt = confVarsObj[PlayerService.KALTURA_PLAYER] ? PlayerService.OVP : PlayerService.OTT;
-			var playerName = confVarsObj[PlayerService.KALTURA_PLAYER] ? PlayerService.KALTURA_PLAYER : PlayerService.KALTURA_PLAYER_OTT;
+			PlayerService.OvpOrOtt = confVarsObj[PlayerService.KONTOROL_PLAYER] ? PlayerService.OVP : PlayerService.OTT;
+			var playerName = confVarsObj[PlayerService.KONTOROL_PLAYER] ? PlayerService.KONTOROL_PLAYER : PlayerService.KONTOROL_PLAYER_OTT;
 			var playerVersion = confVarsObj[playerName] === "{beta}" ? 'beta' : 'latest';
 			var autoUpdate = (confVarsObj[playerName] === "{beta}" || confVarsObj[playerName] === "{latest}");
 			$scope.playerData['playerVersion'] = playerVersion;
@@ -44,7 +44,7 @@ KMCMenu.controller('EditCtrl', ['$scope','$http', '$timeout','PlayerData','Playe
 		localStorageService.set('autoPreview', !$scope.autoPreview);
 	};
 	$scope.setSimulateMobile = function(){
-		window.KalturaPlayer = null;
+		window.KontorolPlayer = null;
 		$("#" + PlayerService.PLAYER_ID).empty();
 		setTimeout(function(){
 			$scope.refreshPlayer();
@@ -146,7 +146,7 @@ KMCMenu.controller('EditCtrl', ['$scope','$http', '$timeout','PlayerData','Playe
                 }else{ // plugin
 	                pluginIndex++;
 	                $scope.propertiesSearch.push({'label': p.label,'categoryIndex':categoryIndex, 'accIndex': pluginIndex, 'id': 'accHeader'+categoryIndex + "_"  +pluginIndex}); // add accordion header to the search indexing
-	                var plugin = {'enabled': p.enabled, 'label': p.label, 'description':p.description, 'isopen': !!p.isOpen, 'model': p.model, 'id': 'accHeader'+categoryIndex + "_" + pluginIndex, 'componentName': p.componentName, 'kalturaPlayerMinVersion': p.kalturaPlayerMinVersion};
+	                var plugin = {'enabled': p.enabled, 'label': p.label, 'description':p.description, 'isopen': !!p.isOpen, 'model': p.model, 'id': 'accHeader'+categoryIndex + "_" + pluginIndex, 'componentName': p.componentName, 'kontorolPlayerMinVersion': p.kontorolPlayerMinVersion};
 	                plugin.properties = [];
 	                // check for tabs
 	                var tabObj = {'type':'tabs', 'children':[]}; // create tab object
@@ -263,7 +263,7 @@ KMCMenu.controller('EditCtrl', ['$scope','$http', '$timeout','PlayerData','Playe
 		    delete $scope.playerData.config.plugins[plugin.model]; // remove the plugin from the player data
 	    }else{
 			if (plugin.componentName) {
-			    window.KalturaPlayer = null;
+			    window.KontorolPlayer = null;
 		    }
 		    $scope.addValidation(plugin);
 	    }
@@ -318,7 +318,7 @@ KMCMenu.controller('EditCtrl', ['$scope','$http', '$timeout','PlayerData','Playe
 		} else {
 			if (willActive) {
 				$scope.playerData.externals[plugin.componentName] = {
-					kalturaPlayerMinVersion: plugin.kalturaPlayerMinVersion,
+					kontorolPlayerMinVersion: plugin.kontorolPlayerMinVersion,
 					active: true
 				};
 				senderPlugin.enabled = false;
@@ -384,8 +384,8 @@ KMCMenu.controller('EditCtrl', ['$scope','$http', '$timeout','PlayerData','Playe
     // handle refresh
 	$scope.lastRefreshID = ''; // used to prevent refresh on blur after refresh on enter
     $scope.propertyChanged = function(property, checkAutoRefresh){
-	    if (property.resetKalturaPlayer){
-		    window.KalturaPlayer = null;
+	    if (property.resetKontorolPlayer){
+		    window.KontorolPlayer = null;
 	    }
 	    if (property.model === "playerVersion" || property.model === "config.playback.textLanguage"){ // handle player version and captions select
 		    $scope.updatePlayerData(); // update the player data from the menu data
@@ -396,7 +396,7 @@ KMCMenu.controller('EditCtrl', ['$scope','$http', '$timeout','PlayerData','Playe
 	    if (property.componentName){ // handle external bundles
 		    $scope.playerData.externals = $scope.playerData.externals || {};
 		    $scope.playerData.externals[property.componentName] = {
-			    kalturaPlayerMinVersion: property.kalturaPlayerMinVersion,
+			    kontorolPlayerMinVersion: property.kontorolPlayerMinVersion,
 			    active: property.initvalue
 		    };
 	    }
@@ -645,7 +645,7 @@ KMCMenu.controller('EditCtrl', ['$scope','$http', '$timeout','PlayerData','Playe
         var model = modelArr.length > 1 ? modelArr[modelArr.length - 1] : modelArr[0];
 		$scope.playerData.plugins[model] = {
 			componentName: plugin.componentName,
-			kalturaPlayerMinVersion: plugin.kalturaPlayerMinVersion
+			kontorolPlayerMinVersion: plugin.kontorolPlayerMinVersion
 		};
 	};
 
@@ -774,7 +774,7 @@ KMCMenu.controller('EditCtrl', ['$scope','$http', '$timeout','PlayerData','Playe
 			if ($scope.playerData.config.plugins.playlistAPI && $scope.playerData.config.plugins.playlistAPI.plugin){
 				$scope.addTags(['html5studio','playlist']); // set playlist tag
 			}else{
-				$scope.setTags(['kalturaPlayerJs','player', PlayerService.OvpOrOtt]); // set player tag
+				$scope.setTags(['kontorolPlayerJs','player', PlayerService.OvpOrOtt]); // set player tag
 			}
 			savePlayer();
 		}

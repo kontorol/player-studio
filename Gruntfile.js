@@ -6,9 +6,9 @@ module.exports = function(grunt) {
         meta: {
             banner: '/*! <%= pkg.name %> - v<%= pkg.version %> - ' +
                 '<%= grunt.template.today("yyyy-mm-dd") %>\n' +
-                '* https://github.com/kaltura/player-studio\n' +
+                '* https://github.com/kontorol/player-studio\n' +
                 '* Copyright (c) <%= grunt.template.today("yyyy") %> ' +
-                'Kaltura */\n'
+                'Kontorol */\n'
         },
         jshint: {
             options: {
@@ -35,7 +35,7 @@ module.exports = function(grunt) {
                     "document": true,
                     "setTimeout": true,
                     "Spinner": true,
-                    "KalturaPlayer": true
+                    "KontorolPlayer": true
                 }
             },
             dev: ['app/js/**/*.js']
