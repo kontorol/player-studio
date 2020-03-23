@@ -2,11 +2,10 @@
     <div id="wrapper">
         <div id="header">
             <h2 id="pageHeader">
-                {{(title) ? title : "Player List"}}
+                {{(title) ? (title | translate) : ("Player List" | translate) }}
             </h2>
             <small ng-hide="showSubTitle">
-                {{'Use the Studio to add new players, customize their functionality, and edit existing players'|
-                translate}}
+                {{'Use the Studio to add new players, customize their functionality, and edit existing players'| translate}}
             </small>
             <div class="padTop clearfix">
                 <div class="pull-right" style="position: relative">
@@ -70,7 +69,7 @@
                             <img class="playerThumb" ng-src="{{getThumbnail(item)}}"/>
                         </td-->
                         <td class="col-xs-3"><a data-ng-click="goToEditPage(item,$event)"
-                                                ng-href="edit/{{item.id}}">{{item.name}}</a>
+                                                ng-href="edit/{{item.id}}">{{item.name | translate}}</a>
                         </td>
                         <td class="idCol">{{item.id}}</td>
                         <td class="col-xs-2 text-center"><span>{{item.updatedAt | timeago}}</span></td>
@@ -98,7 +97,7 @@
                 <div id="maxSizeSelect">
                     <form class="form-inline" role="form">
                         <div>
-                            <small style="margin-right: 5px"> {{filtered.length}} Players in total, Show</small>
+                            <small style="margin-right: 5px"> {{filtered.length}} {{'Players in total, Show' | translate}}</small>
                             <select ui-select2="uiSelectOpts" ng-model="maxSize">
                                 <option value='5'>5</option>
                                 <option value='10'>10</option>
@@ -106,7 +105,7 @@
                                 <option value='20'>20</option>
                                 <option value='50'>50</option>
                             </select>
-                            <small style="margin-left: 5px">per page</small>
+                            <small style="margin-left: 5px">{{'per page' | translate}}</small>
                         </div>
                     </form>
                 </div>

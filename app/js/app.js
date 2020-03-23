@@ -7,19 +7,20 @@ var KMCModule = angular.module('KMCModule',
     ['pascalprecht.translate', 'ngRoute', 'KMC.controllers', 'KMC.filters',
         'KMC.services', 'KMC.directives', 'ngAnimate', 'LocalStorageModule', 'KMCmenu', 'JSONedit']);
 
-KMCModule.config(['$routeProvider', '$locationProvider', '$httpProvider', '$tooltipProvider', '$translateProvider', function ($routeProvider, $locationProvider, $httpProvider, $tooltipProvider, $translateProvider) {
+KMCModule.config(['$routeProvider', '$locationProvider', '$httpProvider', '$tooltipProvider', '$translateProvider',
+    function ($routeProvider, $locationProvider, $httpProvider, $tooltipProvider, $translateProvider) {
         $translateProvider.useStaticFilesLoader({
             prefix: 'i18n/',
             suffix: '.json'
         });
-        $translateProvider.preferredLanguage('en_US');
-        $translateProvider.fallbackLanguage('en_US');
+        $translateProvider.preferredLanguage('fa_IR');
+        $translateProvider.fallbackLanguage('fa_IR');
         if (window.location.href.indexOf('debug') != -1) {
             // add if you want to get all the missing translattions to the console when running in debug mode
-          //  $translateProvider.useMissingTranslationHandlerLog();
+            //  $translateProvider.useMissingTranslationHandlerLog();
         }
         $translateProvider.useStorage('localStorageService');
-        $tooltipProvider.options({ placement: 'right', 'appendToBody': true, 'popupDelay': 800 });
+        $tooltipProvider.options({placement: 'right', 'appendToBody': true, 'popupDelay': 800});
         // set event name for opening and closing the tooltips
         $tooltipProvider.setTriggers({
             'customShow': 'customShow'
@@ -74,10 +75,11 @@ KMCModule.config(['$routeProvider', '$locationProvider', '$httpProvider', '$tool
         $routeProvider.when('/login', {
                 templateUrl: 'view/login.html',
                 controller: 'LoginCtrl',
-                resolve: {'apiService': ['api', 'apiService', function (api, apiService) {
-                    // make sure apiService is available upon invalid KS redirect
-                    return apiService;
-                }]
+                resolve: {
+                    'apiService': ['api', 'apiService', function (api, apiService) {
+                        // make sure apiService is available upon invalid KS redirect
+                        return apiService;
+                    }]
                 }
             }
         );
@@ -120,7 +122,8 @@ KMCModule.config(['$routeProvider', '$locationProvider', '$httpProvider', '$tool
 
         // deep linking to plugin setup
         $routeProvider.when('/edit/:id',
-            {templateUrl: 'view/edit.html',
+            {
+                templateUrl: 'view/edit.html',
                 controller: 'EditCtrl',
                 reloadOnSearch: false,
                 resolve: {
@@ -139,12 +142,13 @@ KMCModule.config(['$routeProvider', '$locationProvider', '$httpProvider', '$tool
 
         // open template screen
         $routeProvider.when('/newByTemplate',
-            {templateUrl: 'view/new-template.html',
+            {
+                templateUrl: 'view/new-template.html',
                 controller: 'PlayerCreateCtrl',
                 reloadOnSearch: false,
                 resolve: {
                     'templates': ['playerTemplates', function (playerTemplates) {
-                        return  playerTemplates.listSystem();
+                        return playerTemplates.listSystem();
                     }],
                     'userId': function () {
                         return '1'; //  KMC would need to give us the userID ?
@@ -154,7 +158,8 @@ KMCModule.config(['$routeProvider', '$locationProvider', '$httpProvider', '$tool
             }
         );
         $routeProvider.when('/new',
-            {templateUrl: 'view/edit.html',
+            {
+                templateUrl: 'view/edit.html',
                 controller: 'EditCtrl',
                 reloadOnSearch: false,
                 resolve: {
@@ -170,29 +175,34 @@ KMCModule.config(['$routeProvider', '$locationProvider', '$httpProvider', '$tool
             }
         );
         $routeProvider.when('/logout', {
-            resolve: {'logout': ['localStorageService', 'apiService', '$location', function (localStorageService, apiService, $location) {
-                if (localStorageService.isSupported()) {
-                    localStorageService.clearAll();
-                }
-                apiService.unSetks();
-                $location.path('/login');
-            }]}
+            resolve: {
+                'logout': ['localStorageService', 'apiService', '$location', function (localStorageService, apiService, $location) {
+                    if (localStorageService.isSupported()) {
+                        localStorageService.clearAll();
+                    }
+                    apiService.unSetks();
+                    $location.path('/login');
+                }]
+            }
 
         });
         $routeProvider.otherwise({
-            resolve: {'res': ['api', 'apiService', 'localStorageService', '$location', function (api, apiService, localStorageService, $location) {
-                if (ksCheck(api, apiService, localStorageService, $location)) {
-                    return $location.path('/list');
-                }
-            }]}
+            resolve: {
+                'res': ['api', 'apiService', 'localStorageService', '$location', function (api, apiService, localStorageService, $location) {
+                    if (ksCheck(api, apiService, localStorageService, $location)) {
+                        return $location.path('/list');
+                    }
+                }]
+            }
         });
-    }]).run(["$rootScope", "$rootElement", "$location", function ($rootScope, $rootElement, $location) {
+    }]
+).run(["$rootScope", "$rootElement", "$location", "$translate", "$window", function ($rootScope, $rootElement, $location, $translate, $window) {
     var appLoad = new Date();
     var debug = false;
-
-    setTimeout(function(){
+    $translate.use("fa_IR");
+    setTimeout(function () {
         window.localStorage.setItem('updateHash', "true"); // IE8 fix
-    },1000);
+    }, 1000);
 
 
     if (typeof window.parent.kmc != 'undefined') {
@@ -245,19 +255,18 @@ KMCModule.config(['$routeProvider', '$locationProvider', '$httpProvider', '$tool
     $rootScope.$on('$routeChangeStart', function () {
         if ($location.search()['debug']) {
             debug = true;
-        }
-        else {
+        } else {
             debug = false;
         }
     });
-	var kmc = window.parent.kmc;
-    if (kmc && kmc.vars.studioV3.showFlashStudio === false && kmc.vars.studioV3.showHTMLStudio === false){
+    var kmc = window.parent.kmc;
+    if (kmc && kmc.vars.studioV3.showFlashStudio === false && kmc.vars.studioV3.showHTMLStudio === false) {
         $(".kmcSubNav").hide();
     }
-    if (kmc && kmc.vars.studioV3.showFlashStudio === false){
+    if (kmc && kmc.vars.studioV3.showFlashStudio === false) {
         $("#flashStudioBtn").hide();
     }
-    if (kmc && kmc.vars.studioV3.showHTMLStudio === false){
+    if (kmc && kmc.vars.studioV3.showHTMLStudio === false) {
         $("#htmlStudioBtn").hide();
     }
 
