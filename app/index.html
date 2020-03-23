@@ -51,6 +51,7 @@
     <!--  bootstrap compiled and minified JavaScript -->
     <!--<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>-->
     <!-- lib css-->
+    <link rel="stylesheet" href="//cdn.rawgit.com/morteza/bootstrap-rtl/v3.3.4/dist/css/bootstrap-rtl.min.css">
     <link rel='stylesheet' href='lib/malihu_custon_scrollbar/jquery.mCustomScrollbar.css'/>
     <link rel="stylesheet" href="bower_components/select2/select2.css">
     <!--[if gte IE 9]>
@@ -111,11 +112,11 @@
     <script type="text/javascript" src="js/controllers/playerCreateCtrl.js"></script>
 </head>
 
-<body id="{{routeName}}">
+<body id="{{routeName}}" class="rtl-theme">
 <div class="kmcSubNav">
-    <a id="htmlStudioBtn" class='btn active' href="index.html">Universal Studio</a>
-    <a id="flashStudioBtn" class='btn' href="http://www.kontorol.com/index.php/kmc/kmc4#studio|playersList">Flash Studio</a>
-    <a id="htmlStudioBtnV3" class='btn'>TV Platform Studio</a>
+    <a id="htmlStudioBtn" class='btn active' href="index.html">{{"Universal Studio" | translate}}</a>
+    <a id="flashStudioBtn" class='btn' href="http://www.kontorol.com/index.php/kmc/kmc4#studio|playersList">{{"Flash Studio" | translate}}</a>
+    <a id="htmlStudioBtnV3" class='btn'>{{"TV Platform Studio" | translate}}</a>
 </div>
 <loading-widget></loading-widget>
 <div class="section relative" ng-view></div>

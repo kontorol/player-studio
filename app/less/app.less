@@ -1,4 +1,8 @@
 /* app stylesheet */
+.rtl-theme {
+  direction: rtl;
+}
+
 html, body, body > .section, .wrapper, .scroller {
   height: 100%;
 }
@@ -6,6 +10,7 @@ html, body, body > .section, .wrapper, .scroller {
 body a {
   //default links color
   color: #009dff;
+
   &:hover, &:focus, &:active {
     color: #51c0ff;
   }
@@ -17,6 +22,7 @@ body a {
   padding-left: 10px;
   border-bottom: 1px solid #cccccc;
   /*margin-bottom: 1px;*/
+
   a {
     font: bold 11px arial, sans-serif;
     padding: 3px 9px;
@@ -24,6 +30,7 @@ body a {
     margin: 7px;
     color: #555555;
     background: white;
+
     &.active {
       background: #222;
       color: white;
@@ -34,6 +41,14 @@ body a {
     display: block;
   }
 
+}
+
+.ltr-theme .kmcSubNav {
+  padding-left: 10px;
+}
+
+.rtl-theme .kmcSubNav {
+  padding-right: 10px;
 }
 
 .fluid-container {
@@ -100,8 +115,15 @@ body a {
 
 .spinWrapper {
   top: 50%;
-  left: 50%;
   position: absolute;
+}
+
+.ltr-theme .spinWrapper {
+  left: 50%;
+}
+
+.ltr-theme .spinWrapper {
+  right: 50%;
 }
 
 .loadingOverlay {
@@ -111,13 +133,24 @@ body a {
   opacity: 0.6;
   position: absolute;
   top: 0;
-  left: 0;
   z-index: 999;
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=60)";
 }
 
+.ltr-theme .loadingOverlay {
+  left: 0;
+}
+
+.rtl-theme .loadingOverlay {
+  right: 0;
+}
+
 .forceRightRadius {
   border-radius: 0px 4px 4px 0px !important;
+}
+
+.merged {
+  direction: ltr;
 }
 
 .merged .input-group-addon {
@@ -128,8 +161,8 @@ body a {
 .merged input {
   -webkit-box-shadow: none;
   box-shadow: none;
-  border-left: 0px;
   background-color: #FFFFFF;
+  border-left: 0px;
 }
 
 .btn-primary {
@@ -269,6 +302,7 @@ button:focus {
 
 .select2-results {
   background-color: #fff;
+
   .select2-highlighted {
     background-color: #eee;
   }
@@ -278,17 +312,28 @@ button:focus {
   border-color: rgb(170, 170, 170);
 }
 
-.select2-results {
+.ltr-theme .select2-results {
   padding: 0;
   margin-right: 0px;
+}
+
+.rtl-theme .select2-results {
+  padding: 0;
+  margin-left: 0px;
 }
 
 .select2-results .select2-result-label {
   border-top: 1px solid #ddd;
 }
 
-.select2-results .select2-no-results {
+.ltr-theme .select2-results .select2-no-results {
   background: #fff;
   padding-left: 7px;
+  color: #555;
+}
+
+.rtl-theme .select2-results .select2-no-results {
+  background: #fff;
+  padding-right: 7px;
   color: #555;
 }

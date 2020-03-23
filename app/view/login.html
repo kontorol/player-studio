@@ -2,26 +2,26 @@
     <div class="container">
         <div id="loginBox" class="">
             <h2 class="text-muted page-header" id="pageHeader">
-                Login to v2.0 Studio
+                {{"Login to v2.0 Studio" | translate}}
             </h2>
 
-            <div class="alert alert-danger" ng-show="formError">{{formHelpMsg}}</div>
+            <div class="alert alert-danger" ng-show="formError">{{formHelpMsg | translate}}</div>
             <form ng-submit="login()" class="form-horizontal">
                 <div id="loginTable">
 
                     <div class="form-group">
-                        <label class='sr-only control-label' for="email">Email:</label>
+                        <label class='sr-only control-label' for="email">'{{"Email:" | translate}}'</label>
                         <input class=" form-control col-md-8" value='' type="text" id="email" ng-model="email"
-                               placeholder="Email:"/>
+                               placeholder='{{"Email:" | translate}}'/>
                     </div>
                     <div class="form-group">
-                        <label class='sr-only control-label' for="password">Password:</label>
+                        <label class='sr-only control-label' for="password">{{"Password:" | translate}}</label>
                         <input class="form-control  col-md-8" value='' type="password" id="password" ng-model="pwd"
-                               placeholder="Password:">
+                               placeholder='{{"Password:" | translate}}'>
                     </div>
 
                     <div class="col-md-offset-4 login-foot">
-                        <input type="submit" class="btn btn-primary login" value='Login'/></div>
+                        <input type="submit" class="btn btn-primary login" value='{{"Login" | translate}}'/></div>
                 </div>
             </form>
         </div>

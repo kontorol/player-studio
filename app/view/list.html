@@ -2,7 +2,7 @@
 	<div id="wrapper">
 		<div id="header">
 			<h2 id="pageHeader">
-				{{(title) ? title : "Players list"}}
+				{{(title) ? title : "Players list" | translate}}
 			</h2>
 			<small ng-hide="showSubTitle">
 				{{'In this page you can customize the look and the functionality of your players'| translate}}
@@ -42,7 +42,7 @@
 					<i class="glyphicon" ng-class="{'glyphicon-chevron-down':(sort.sortCol=='updatedAt' && sort.reverse==false),
                 'glyphicon-chevron-up':(sort.sortCol=='updatedAt' && sort.reverse == true)}" style="margin-left: 5px"></i>
 				</a></div>
-				<div class="col-lg-2 text-center visible-lg"><a data-ng-click="sortBy('createdAt')">{{ 'Creation Date' | translate }}
+				<div class="col-xs-2 text-center visible-lg"><a data-ng-click="sortBy('createdAt')">{{ 'Creation Date' | translate }}
 					<i class="glyphicon" ng-class="{'glyphicon-chevron-down':(sort.sortCol=='createdAt' && sort.reverse==false),
                 'glyphicon-chevron-up':(sort.sortCol=='createdAt' && sort.reverse == true)}" style="margin-left: 5px"></i>
 				</a></div>
@@ -68,7 +68,7 @@
 						</td>
 						<td class="idCol">{{item.id}}</td>
 						<td class="col-xs-2 text-center"><span>{{item.updatedAt | timeago}}</span></td>
-						<td class="visible-lg col-lg-2 text-center"><span>{{item.createdAt | timeago }}</span></td>
+						<td class="visible-lg col-xs-2 text-center"><span>{{item.createdAt | timeago }}</span></td>
 						<td class="actionBtns ">
 							<div class="inner">
 								<button type="button" class="btn btn-link" ng-click="duplicate(item)"><span
@@ -103,14 +103,14 @@
 				<div id="maxSizeSelect">
 					<form class="form-inline" role="form">
 						<div>
-							<small style="margin-right: 5px"> {{filtered.length}} Players in total, Show</small>
+							<small style="margin-right: 5px"> {{filtered.length; "Players in total, Show" | translate}} </small>
 							<select  ui-select2="uiSelectOpts" ng-model="maxSize">
 								<option value='5'>5</option>
 								<option value='10'>10</option>
 								<option value='15'>15</option>
 								<option value='20'>20</option>
 							</select>
-							<small style="margin-left: 5px">per page</small>
+							<small style="margin-left: 5px">{{"per page" | translate}}</small>
 						</div>
 					</form>
 				</div>
