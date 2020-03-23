@@ -199,7 +199,16 @@ KMCModule.config(['$routeProvider', '$locationProvider', '$httpProvider', '$tool
 ).run(["$rootScope", "$rootElement", "$location", "$translate", "$window", function ($rootScope, $rootElement, $location, $translate, $window) {
     var appLoad = new Date();
     var debug = false;
-    $translate.use("fa_IR");
+    var item = $window.localStorage.getItem("ngx-webstorage|kmc_lang");// ||  $window.localStorage.getItem("ls.NG_TRANSLATE_LANG_KEY") ;
+   console.log(item);
+    if (item) {
+        if (item.includes("fa")) {
+            $translate.use("fa_IR");
+        }
+    } else {
+        //$translate.use("en_US");
+        $translate.use("fa_IR");
+    }
     setTimeout(function () {
         window.localStorage.setItem('updateHash', "true"); // IE8 fix
     }, 1000);
